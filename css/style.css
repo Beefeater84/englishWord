@@ -1,0 +1,125 @@
+body {
+  font-family: OpenSans-Light, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  position: relative;
+  height: 100%; }
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility; }
+
+@media (min-width: 48rem) {
+  .container {
+    max-width: 45rem; } }
+
+@media (min-width: 62rem) {
+  .container {
+    max-width: 58.75rem; } }
+
+@media (min-width: 75rem) {
+  .container {
+    max-width: 71.25rem; } }
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 0.9rem;
+  padding-left: 0.9rem; }
+
+a,
+a:focus,
+a:hover,
+a:vizited {
+  outline: none; }
+
+img {
+  max-width: 100%;
+  vertical-align: bottom; }
+
+h1 {
+  font-family: OpenSans-Light, Helvetica, Arial, sans-serif;
+  font-size: 3rem;
+  line-height: 3.25rem;
+  margin-bottom: 0;
+  padding-bottom: 0.3125rem; }
+
+h2 {
+  font-family: OpenSans-Light, Helvetica, Arial, sans-serif;
+  font-size: 1.4375rem;
+  font-weight: bold;
+  line-height: 1.875rem;
+  margin-bottom: 0;
+  padding-bottom: 10px; }
+
+h3 {
+  font-family: OpenSans-Light, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 0;
+  padding-bottom: 17px; }
+
+h4 {
+  font-family: OpenSans-Light, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20px;
+  margin-bottom: 0; }
+
+h5 {
+  font-family: OpenSans-Light, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 18px;
+  margin-bottom: 0; }
+
+h6 {
+  font-family: OpenSans-Light, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  margin-bottom: 0; }
+
+.h1,
+.h2,
+.h3,
+h1,
+h2,
+h3 {
+  margin-top: 0; }
+
+img,
+media {
+  max-width: 100%;
+  height: auto;
+  vertical-align: top; }
+
+figure {
+  margin: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0; }
+
+p {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0; }
+
+ul,
+menu,
+dir {
+  display: block;
+  list-style-type: disc;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  -webkit-padding-start: 0; }
+
+label {
+  font-weight: normal;
+  display: block;
+  text-align: left; }

@@ -1,0 +1,17 @@
+
+$font-family: OpenSans-Light, Helvetica, Arial, sans-serif;
+$font-family-regular: OpenSans-Regular, Helvetica, Arial, sans-serif;
+$font-size: 16px;
+$line-height: 22px;
+$color:	#616161; //#18191a;
+$color-text: #72777d; 
+$color-bg: #Fb5A60;
+$color-header: #141414; // Цвет заголовков
+$color-dark-grey: #e0e0e0; // основной задний цвет
+$width: 1200px;
+
+@function rem($px, $base: $font_size) {
+    @return ($px / $base) * 1rem;
+}
+
+
