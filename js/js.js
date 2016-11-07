@@ -42,7 +42,64 @@
 		['слышать, услышать', 'hear',	'heard',	'heard'],
 		['прятать, скрывать', 'hide',	'hid',	'hidden'],
 		['ударять, поражать', 'hit', 'hit',	'hit'],
-		['держать, удерживать, задерживать', 'hold', 'held',	'held']
+		['держать, удерживать, задерживать', 'hold', 'held',	'held'],
+		["ранить", "hurt",	"hurt",	"hurt"],
+		["хранить, сохранять", "keep",	"kept",	"kept"],
+		["знать", "know",	"knew",	"known"],
+		["класть, положить, покрывать", "lay",	"laid",	"laid"],
+		['писать, записывать','write','wrote','written'], 
+		['победить, выиграть','win','won','won'], 
+		['носить (одежду)','wear','wore','worn'], 
+		['просыпаться, будить','wake','woke','woken'], 
+		['понимать, постигать','understand','understood','understood'], 
+		['бросать, кидать, метать','throw','threw','thrown'], 
+		['думать, мыслить, размышлять','think','thought','thought'], 
+		['рассказывать','tell','told','told'], 
+		['рвать, отрывать','tear','tore','torn'], 
+		['учить, обучать','teach','taught','taught'], 
+		['брать, хватать, взять','take','took','taken'], 
+		['качаться, вертеться','swing','swung','swung'], 
+		['плавать, плыть','swim','swam','swum'], 
+		['мести, подметать, смахивать','sweep','swept','swept'], 
+		['клясться, присягать','swear','swore','sworn'], 
+		['ударять, бить, поражать','strike','struck','struck, stricken'], 
+		['втыкать, приклеивать','stick','stuck','stuck'], 
+		['воровать, красть','steal','stole','stolen'], 
+		['стоять','stand','stood','stood'], 
+		['тратить, расходовать, проводить (время)','spend','spent','spent'], 
+		['говорить, разговаривать, высказываться','speak','spoke','spoken'], 
+		['спать','sleep','slept','slept'], 
+		['сидеть, садиться','sit','sat','sat'], 
+		['тонуть, погружаться','sink','sank','sunk'], 
+		['петь, напевать','sing','sang','sung'], 
+		['закрывать, запирать, затворять','shut','shut','shut'], 
+		['показывать','show','showed','shown, showed'], 
+		['стрелять','shoot','shot','shot'], 
+		['светить, сиять, озарять','shine','shone','shone'], 
+		['трясти, встряхивать','shake','shook','shaken'], 
+		['устанавливать, задавать, назначать','set','set','set'], 
+		['посылать, отправлять, отсылать','send','sent','sent'], 
+		['продавать, торговать','sell','sold','sold'], 
+		['искать, разыскивать','seek','sought','sought'], 
+		['видеть','see','saw','seen'], 
+		['говорить, сказать, произносить','say','said','said'], 
+		['бежать, бегать','run','ran','run'], 
+		['восходить, вставать, подниматься','rise','rose','risen'], 
+		['звенеть, звонить','ring','rang','rung'], 
+		['ехать верхом, кататься','ride','rode','ridden'], 
+		['читать, прочитать','read','read','read'], 
+		['ставить, помещать, класть','put','put','put'], 
+		['платить, оплачивать, рассчитываться','pay','paid','paid'], 
+		['встречать, знакомиться','meet','met','met'], 
+		['значить, иметь в виду, подразумевать','mean','meant','meant'], 
+		['делать, создавать, изготавливать','make','made','made'], 
+		['терять, лишаться, утрачивать','lose','lost','lost'], 
+		['зажигать, светиться, освещать','light','lit','lit'], 
+		['лежать','lie','lay','lain'], 
+		['позволять, разрешать','let','let','let'], 
+		['одалживать, давать взаймы (в долг)','lend','lent','lent'], 
+		['покидать, уходить, уезжать, оставлять','leave','left','left'], 
+		['вести за собой, сопровождать, руководить','lead','led','led']
 	];
 
 	// Все слова с переводом - это массивы из 4-х элементов, где 0 элемент слово на русском, остальные 3 формы глагола
@@ -53,17 +110,28 @@
 	var englishWord = document.querySelectorAll('.englishWord'), // все input с английскими словами 
 			worldContainer = document.querySelector('.worldContainer'), // контейнер для слова на русском
 			resultContainer = document.querySelector('.resultContainer'), // контейнер для вывода хвалебного отзыва о превильном ответе
-			checkingWorld; // проверяемое слово, в случае неправильных глаголов у это массив из 3-х элементов
+			checkingWorld, // проверяемое слово, в случае неправильных глаголов у это массив из 3-х элементов
+			withHelpFlag = false, // Флаг "Была ли подсказка", если true, то не заносим правильный ответ в localstorage
+			toLocalStorage = JSON.parse(localStorage.getItem("irregularVerb")) || {}, //Парсим наш объект
+			randomWorld; // Номер проверяемого слова в массиве, записываем его как ключ в localStorage
+
 
 	/* Выбираем случайное слово, 
 	засовываем в контейнер русское слово из первой ячейки в массиве
 	сохраняем весь массив - русский перевод/все формы глагола */
 	function takeWorld(){
-		var randomWorld = randomInteger(0, irregularVerb.length-1);
-		checkingWorld = irregularVerb[randomWorld]; // берем весь массив
-		worldContainer.innerHTML = checkingWorld[0];
+		randomWorld = randomInteger(0, irregularVerb.length-1);
 
-		return checkingWorld;
+		if(toLocalStorage[randomWorld] > 10){
+			takeWorld();
+		}else{
+			checkingWorld = irregularVerb[randomWorld]; // берем весь массив
+			worldContainer.innerHTML = checkingWorld[0];
+
+			withHelpFlag = false; // при появлении нового слова обнуляем флаг
+
+			return [checkingWorld, randomWorld];
+		}
 	}
 
 	/* Функция случайного значения
@@ -108,6 +176,8 @@
 		for (var i = englishWord.length - 1; i >= 0; i--) {
 			englishWord[i].value = checkingWorld[i+1];
 		}
+
+		withHelpFlag = true; // если показана подсказка, то ставим флаг, что ответил не сам
 	}
 
 	/* Управление с кнопок*/
@@ -156,15 +226,43 @@
 		}
 
 	 if(counter){
+
+	 	
+	 		if( withHelpFlag == false){
+	 			if( toLocalStorage[randomWorld] == undefined ){
+	 				toLocalStorage[randomWorld] = 1;
+	 				putToLocalstorage();
+	 			}else{
+	 				toLocalStorage[randomWorld] = toLocalStorage[randomWorld] + 1;
+	 				putToLocalstorage();
+	 			}
+	 		}
+
 	 	 showResult();
 	 	 getNextWorld();
 	 }
 
 	}
 
+// Создаем новый объект, в него записываем номер строки в массиве как ключ и количество правильно ответивших как значение
+// Помещаем их в localstorage и перезаписываем при каждом правильном ответе
+// Делаем withHelpFlag который срабатывает при нажатии подсказки и сбрасывается при появлении нового слова +
 
-	takeWorld();
+	function putToLocalstorage(){
+		var serialObj = JSON.stringify(toLocalStorage);
+		localStorage.setItem("irregularVerb", serialObj);
+	}
+
+	takeWorld(); // Запускаем все это при первом запуске
 
 })(); 
 
+// Реализовать несколько наборов карточек
+
+
+
+
+
 	
+
+
